@@ -28,7 +28,7 @@ fun HomeScreen(navController: NavController) {
                 Spacer(modifier = Modifier.width(25.dp))
 
                 Text(
-                    text = "Login",
+                    text = "Home",
                     modifier = Modifier.align(Alignment.CenterVertically)
                 )
             }

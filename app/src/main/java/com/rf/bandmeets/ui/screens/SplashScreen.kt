@@ -2,8 +2,6 @@ package com.rf.bandmeets.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.Button
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -19,8 +17,6 @@ fun SplashScreen(navController: NavController) {
     Scaffold(topBar = {
         TopAppBar(elevation = 5.dp) {
             Row(horizontalArrangement = Arrangement.Start) {
-                Spacer(modifier = Modifier.width(25.dp))
-
                 Text(
                     text = "Login",
                     modifier = Modifier.align(Alignment.CenterVertically)
