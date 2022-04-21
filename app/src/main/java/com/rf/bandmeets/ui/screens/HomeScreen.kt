@@ -1,4 +1,4 @@
-package com.rf.bandmeets
+package com.rf.bandmeets.ui.screens
 
 import androidx.compose.material.Button
 import androidx.compose.material.Text
