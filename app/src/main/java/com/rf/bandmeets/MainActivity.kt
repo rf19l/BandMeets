@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import com.rf.bandmeets.navigation.Navigation
 import com.rf.bandmeets.ui.theme.BandMeetsTheme
 import dagger.hilt.android.AndroidEntryPoint
 
