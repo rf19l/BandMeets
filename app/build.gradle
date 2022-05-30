@@ -62,7 +62,7 @@ dependencies {
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
 
-    implementation("androidx.navigation:navigation-compose:2.5.0-beta01")
+    implementation("androidx.navigation:navigation-compose:2.5.0-rc01")
 
     /* Hilt Dependencies */
     implementation("com.google.dagger:hilt-android:2.40.3")
@@ -73,7 +73,7 @@ dependencies {
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
 
     /* View Model */
-    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.5.0-beta01"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.5.0-rc01"
 
     /*Image Library Coil */
     implementation("io.coil-kt:coil-compose:1.4.0")
