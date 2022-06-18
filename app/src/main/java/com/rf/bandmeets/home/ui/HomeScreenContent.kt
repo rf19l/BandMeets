@@ -1,5 +1,6 @@
-package com.rf.bandmeets.ui.screens
+package com.rf.bandmeets.home.ui
 
+import androidx.activity.OnBackPressedCallback
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -12,18 +13,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
+import com.rf.bandmeets.core.ui.Screen
+import com.rf.bandmeets.login.ui.LoginViewState
 import com.rf.bandmeets.navigation.NavigationUtils
 
 @Composable
-fun HomeScreen(navController: NavController) {
+fun HomeScreenContent(
+    viewState: LoginViewState,
+    onBackPressed: () -> Unit,
+) {
     Scaffold(topBar = {
         TopAppBar(elevation = 5.dp) {
             Row(horizontalArrangement = Arrangement.Start) {
                 Icon(imageVector = Icons.Default.ArrowBack,
                     contentDescription = "Arrow Back",
                     modifier = Modifier.clickable {
-                        NavigationUtils.popBack(navController)
+                       onBackPressed()
                     })
                 Spacer(modifier = Modifier.width(25.dp))
 
@@ -34,7 +39,7 @@ fun HomeScreen(navController: NavController) {
             }
         }
     }) {
-        Button(onClick = { navController.navigate(Screen.SplashScreen.route) }) {
+        Button(onClick = { onBackPressed() }) {
             Text(text = "To Home Screen")
 
         }

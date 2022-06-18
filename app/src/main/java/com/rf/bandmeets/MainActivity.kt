@@ -7,7 +7,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.rf.bandmeets.navigation.Navigation
-import com.rf.bandmeets.ui.theme.BandMeetsTheme
+import com.rf.bandmeets.core.ui.theme.BandMeetsTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

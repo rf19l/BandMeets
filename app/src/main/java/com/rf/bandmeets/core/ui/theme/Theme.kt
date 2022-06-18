@@ -1,4 +1,4 @@
-package com.rf.bandmeets.ui.theme
+package com.rf.bandmeets.core.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
