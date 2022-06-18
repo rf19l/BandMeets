@@ -1,7 +1,7 @@
-package com.rf.bandmeets
+package com.rf.bandmeets.core.ui
 
 sealed class Screen(val route: String){
     object MainScreen: Screen("main_screen")
-    object SplashScreen: Screen("login_screen")
+    object LoginScreen: Screen("login_screen")
 
 }
