@@ -1,4 +1,4 @@
-package com.rf.bandmeets.domain
+package com.rf.bandmeets.core.domain
 
 interface RemoteConfig {
 

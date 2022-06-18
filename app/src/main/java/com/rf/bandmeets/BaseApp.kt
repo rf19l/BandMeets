@@ -1,13 +1,7 @@
 package com.rf.bandmeets
 
-import android.app.Activity
 import android.app.Application
-import com.rf.bandmeets.domain.PreferencesRepository
-import com.rf.bandmeets.domain.RemoteConfig
-import com.rf.bandmeets.domain.UserRepository
 import dagger.hilt.android.HiltAndroidApp
-import java.lang.ref.WeakReference
-import javax.inject.Inject
 
 @HiltAndroidApp
 class BaseApp: Application() {
@@ -15,7 +9,8 @@ class BaseApp: Application() {
     companion object{
         var mAppCreated = false
         var didCheckUpdate =false
-    }/*
+    }
+/*
 
     @Inject
     var userRepository: UserRepository? = null

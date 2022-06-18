@@ -1,6 +1,4 @@
-package com.rf.bandmeets.domain
-
-import androidx.annotation.Nullable
+package com.rf.bandmeets.core.domain
 
 interface PreferencesRepository {
     /*
