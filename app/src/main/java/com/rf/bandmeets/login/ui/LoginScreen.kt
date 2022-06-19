@@ -5,12 +5,14 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.rf.bandmeets.core.ui.Screen
 
+@Destination(start=true)
 @Composable
 fun LoginScreen(
-    navController: NavController,
+    navigator: DestinationsNavigator,
     viewModel: LoginViewModel = hiltViewModel<LoginViewModel>()
 ) {
     val viewState = viewModel.viewState.collectAsState()
@@ -18,7 +20,9 @@ fun LoginScreen(
 
     DisposableEffect(viewState.value) {
         if (viewState.value is LoginViewState.Completed) {
-            navController.navigate(Screen.MainScreen.route)
+            navigator.navigate(Screen.HomeScreen.route){
+                popUpToRoute
+            }
         }
 
         onDispose { }

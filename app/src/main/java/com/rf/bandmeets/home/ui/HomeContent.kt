@@ -14,12 +14,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.rf.bandmeets.core.ui.Screen
-import com.rf.bandmeets.login.ui.LoginViewState
+import com.rf.bandmeets.home.ui.HomeViewState
 import com.rf.bandmeets.navigation.NavigationUtils
 
 @Composable
-fun HomeScreenContent(
-    viewState: LoginViewState,
+fun HomeContent(
+    viewState: HomeViewState,
     onBackPressed: () -> Unit,
 ) {
     Scaffold(topBar = {

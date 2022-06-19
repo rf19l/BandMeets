@@ -7,7 +7,7 @@ import androidx.navigation.compose.rememberNavController
 import com.rf.bandmeets.home.ui.HomeScreen
 import com.rf.bandmeets.core.ui.Screen
 import com.rf.bandmeets.login.ui.LoginScreen
-
+/*
 @Composable
 fun Navigation() {
     val navController = rememberNavController()
@@ -16,11 +16,13 @@ fun Navigation() {
         startDestination = Screen.LoginScreen.route
     ) {
         composable(route = Screen.LoginScreen.route) {
-            LoginScreen(navController = navController)
+            LoginScreen(navigator = navController)
         }
-        composable(route = Screen.MainScreen.route) {
+        composable(route = Screen.HomeScreen.route) {
             HomeScreen(navController = navController)
         }
     }
 
 }
+
+ */

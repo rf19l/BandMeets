@@ -11,7 +11,11 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeScreenViewModel @Inject constructor(
 ): ViewModel() {
-    private val _viewState: MutableStateFlow<LoginViewState> =
-        MutableStateFlow(LoginViewState.Initial)
-    val viewState: StateFlow<LoginViewState> = _viewState
+    private val _viewState: MutableStateFlow<HomeViewState> =
+        MutableStateFlow(HomeViewState.Initial)
+    val viewState: StateFlow<HomeViewState> = _viewState
+
+    fun onBackPressed(){
+        _viewState.value = HomeViewState.BackPressed
+    }
 }
