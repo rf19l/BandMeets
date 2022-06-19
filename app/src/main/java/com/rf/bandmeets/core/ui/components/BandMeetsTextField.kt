@@ -7,11 +7,11 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.ContentAlpha
+import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material3.*
 import androidx.compose.material3.ExposedDropdownMenuDefaults.outlinedTextFieldColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.material.TextFieldDefaults
-import androidx.compose.material3.*
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
@@ -35,50 +35,52 @@ fun BandMeetsTextField(
     placeholderText: String? = null,
     focusRequester: FocusRequester = FocusRequester(),
 ) {
-    val labelComposable: (@Composable () -> Unit)? = labelText?.let {
-        @Composable {
-            Text(
-                text = labelText,
-            )
+    BandMeetsTheme {
+        val labelComposable: (@Composable () -> Unit)? = labelText?.let {
+            @Composable {
+                Text(
+                    text = labelText,
+                )
+            }
         }
-    }
 
-    val placeholderComposable: (@Composable () -> Unit)? = placeholderText?.let {
-        @Composable {
-            Text(
-                text = placeholderText,
-            )
+        val placeholderComposable: (@Composable () -> Unit)? = placeholderText?.let {
+            @Composable {
+                Text(
+                    text = placeholderText,
+                )
+            }
         }
-    }
 
-    Column {
-        OutlinedTextField(
-            value = text,
-            onValueChange = onTextChanged,
-            label = labelComposable,
-            shape = TextFieldShape,
-            modifier = modifier
-                .heightIn(dimensionResource(com.rf.bandmeets.R.dimen.text_field_height))
-                .fillMaxWidth()
-                .focusRequester(focusRequester),
-            isError = (errorMessage != null),
-            visualTransformation = visualTransformation,
-            enabled = enabled,
-            keyboardOptions = keyboardOptions,
-            colors = md3TextFieldColors(),
-            placeholder = placeholderComposable,
-        )
-
-        if (errorMessage != null) {
-            Text(
-                text = errorMessage,
-                color = MaterialTheme.colorScheme.error,
-                modifier = Modifier
-                    .padding(
-                        top = 4.dp,
-                        start = 16.dp,
-                    ),
+        Column {
+            OutlinedTextField(
+                value = text,
+                onValueChange = onTextChanged,
+                label = labelComposable,
+                shape = TextFieldShape,
+                modifier = modifier
+                    .heightIn(dimensionResource(com.rf.bandmeets.R.dimen.text_field_height))
+                    .fillMaxWidth()
+                    .focusRequester(focusRequester),
+                isError = (errorMessage != null),
+                visualTransformation = visualTransformation,
+                enabled = enabled,
+                keyboardOptions = keyboardOptions,
+                colors = md3TextFieldColors(),
+                placeholder = placeholderComposable,
             )
+
+            if (errorMessage != null) {
+                Text(
+                    text = errorMessage,
+                    color = MaterialTheme.colorScheme.error,
+                    modifier = Modifier
+                        .padding(
+                            top = 4.dp,
+                            start = 16.dp,
+                        ),
+                )
+            }
         }
     }
 }
@@ -151,15 +153,14 @@ private fun md3TextFieldColors(
 @Composable
 @Suppress("UnusedPrivateMember")
 private fun FilledBandMeetsTextFieldPreview() {
-    BandMeetsTheme {
-        Surface {
-            BandMeetsTextField(
-                text = "TOA text field",
-                onTextChanged = {},
-                labelText = "Label",
-            )
-        }
+    Surface {
+        BandMeetsTextField(
+            text = "TOA text field",
+            onTextChanged = {},
+            labelText = "Label",
+        )
     }
+
 }
 
 @Preview(
