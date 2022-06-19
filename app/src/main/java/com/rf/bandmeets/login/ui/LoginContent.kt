@@ -204,6 +204,14 @@ private fun AppLogo(
     }
 }
 
+@Preview(
+    name = "Day Mode",
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+)
+@Composable
+fun PreviewAppLogo(){
+    AppLogo()
+}
 @Composable
 private fun SignUpButton(
     onClick: () -> Unit,
