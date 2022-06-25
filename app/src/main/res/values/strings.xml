@@ -5,4 +5,8 @@
     <string name="log_in">log in</string>
     <string name="sign_up">sign up</string>
     <string name="app_logo_content_description">description</string>
+    <string name="err_invalid_credentials">Invalid email/password combination</string>
+    <string name="err_login_failure">There was a problem logging in. Please check your internet connection and try again.</string>
+    <string name="err_empty_email">Please enter an email</string>
+    <string name="err_empty_password">Please enter a password</string>
 </resources>

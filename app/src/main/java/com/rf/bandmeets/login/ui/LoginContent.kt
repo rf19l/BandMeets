@@ -4,27 +4,38 @@ import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.Role.Companion.Image
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
+import androidx.core.view.ViewCompat
 import com.rf.bandmeets.R
+import com.rf.bandmeets.core.ui.UiTextUtils
 import com.rf.bandmeets.core.ui.components.BandMeetsButtonPrimary
+import com.rf.bandmeets.core.ui.components.BandMeetsSpinner
 import com.rf.bandmeets.core.ui.components.BandMeetsTextField
+import com.rf.bandmeets.core.ui.getString
 import com.rf.bandmeets.core.ui.theme.BandMeetsTheme
 import com.rf.bandmeets.core.ui.theme.Purple200
+import com.rf.bandmeets.login.domain.model.Credentials
+import com.rf.bandmeets.login.domain.model.Email
+import com.rf.bandmeets.login.domain.model.Password
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -40,20 +51,30 @@ fun LoginContent(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
     ) {
-        Scaffold(
-        ) { values ->
+        Box(
+            modifier = Modifier
+                .padding(
+                start = 10.dp,
+                end = 10.dp
+            )
+            ,
+        ) {
             LoginInputColumn(
                 viewState = viewState,
                 onEmailChanged = onEmailChanged,
                 onPasswordChanged = onPasswordChanged,
                 onLoginClicked = onLoginClicked,
                 onSignUpClicked = onSignUpClicked,
-                contentPadding = values
             )
             if (viewState is LoginViewState.Submitting) {
-                Material3CircularProgressIndicator(
+                val manager = LocalFocusManager.current
+                manager.clearFocus(true)
+                BandMeetsSpinner(
                     modifier = Modifier
                         .wrapContentSize()
+                        .align(Alignment.Center)
+                        .fillMaxSize(.5f)
+                //TODO fix alignment
                 )
             }
 
@@ -97,7 +118,8 @@ private fun LoginInputColumn(
             text = viewState.credentials.email.value,
             onTextChanged = onEmailChanged,
             errorMessage = (viewState as? LoginViewState.Active)
-                ?.emailInputErrorMessage,
+                ?.emailInputErrorMessage
+                ?.getString(),
             //?.getString(this.context),
             enabled = viewState.inputsEnabled,
         )
@@ -107,13 +129,13 @@ private fun LoginInputColumn(
             text = viewState.credentials.password.value,
             onTextChanged = onPasswordChanged,
             errorMessage = (viewState as? LoginViewState.Active)
-                ?.passwordInputErrorMessage,
-            //?.getString(),
+                ?.passwordInputErrorMessage?.getString(),
             enabled = viewState.inputsEnabled,
+            onLoginClicked = onLoginClicked
         )
         if (viewState is LoginViewState.SubmissionError) {
             Text(
-                text = viewState.errorMessage,
+                text = viewState.errorMessage.getString(),
                 color = MaterialTheme.colorScheme.error,
                 modifier = Modifier
                     .padding(top = 12.dp),
@@ -144,12 +166,22 @@ private fun EmailInput(
     errorMessage: String?,
     enabled: Boolean,
 ) {
+    val localFocus = LocalFocusManager.current
     BandMeetsTextField(
         text = text,
         onTextChanged = onTextChanged,
         labelText = stringResource(R.string.email),
         errorMessage = errorMessage,
         enabled = enabled,
+        keyboardOptions = KeyboardOptions(
+            keyboardType = KeyboardType.Email,
+            imeAction = ImeAction.Next
+        ),
+        keyboardActions = KeyboardActions(
+            onNext ={
+                localFocus.moveFocus(FocusDirection.Next)
+            }
+        )
     )
 }
 
@@ -159,6 +191,7 @@ fun PasswordInput(
     onTextChanged: (String) -> Unit,
     errorMessage: String?,
     enabled: Boolean,
+    onLoginClicked: () -> Unit
 ) {
     BandMeetsTextField(
         text = text,
@@ -166,12 +199,19 @@ fun PasswordInput(
         labelText = stringResource(R.string.password),
         errorMessage = errorMessage,
         visualTransformation = PasswordVisualTransformation(
-            '-',
+            mask ='*',
         ),
         enabled = enabled,
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Password,
+            imeAction = ImeAction.Go
         ),
+        keyboardActions = KeyboardActions(
+            onGo = {
+                onLoginClicked()
+            }
+        )
+
     )
 }
 
@@ -209,9 +249,10 @@ private fun AppLogo(
     uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
 @Composable
-fun PreviewAppLogo(){
+fun PreviewAppLogo() {
     AppLogo()
 }
+
 @Composable
 private fun SignUpButton(
     onClick: () -> Unit,
@@ -238,4 +279,30 @@ fun LoginPreview() {
         onLoginClicked = { }) {
 
     }
+}
+
+class LoginViewStateProvider : PreviewParameterProvider<LoginViewState> {
+
+    override val values: Sequence<LoginViewState>
+        get() {
+            val activeCredentials = Credentials(
+                Email("testy@mctestface.com"),
+                Password("Hunter2"),
+            )
+
+            return sequenceOf(
+                LoginViewState.Initial,
+                LoginViewState.Active(activeCredentials),
+                LoginViewState.Submitting(activeCredentials),
+                LoginViewState.SubmissionError(
+                    credentials = activeCredentials,
+                    errorMessage = UiTextUtils.StringText("Something went wrong."),
+                ),
+                LoginViewState.Active(
+                    credentials = activeCredentials,
+                    emailInputErrorMessage = UiTextUtils.StringText("Please enter an email."),
+                    passwordInputErrorMessage = UiTextUtils.StringText("Please enter a password"),
+                ),
+            )
+        }
 }

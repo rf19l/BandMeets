@@ -4,12 +4,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import androidx.navigation.NavHost
+import com.rf.bandmeets.R
+import com.rf.bandmeets.core.ui.UiTextUtils
 import com.rf.bandmeets.login.domain.model.Credentials
 import com.rf.bandmeets.login.domain.model.Email
 import com.rf.bandmeets.login.domain.model.LoginResult
 import com.rf.bandmeets.login.domain.model.Password
 import com.rf.bandmeets.login.domain.usecase.CredentialsLoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -49,21 +52,21 @@ class LoginViewModel @Inject constructor(
     }
 
     fun loginButtonClicked() {
-        _viewState.value = LoginViewState.Completed
-        /*
+       // _viewState.value = LoginViewState.Completed
+
                val currentCredentials = _viewState.value.credentials
                _viewState.value = LoginViewState.Submitting(
                    credentials = currentCredentials,
                )
 
-               viewModelScope.launch {
-                   val loginResult = credentialsLoginUseCase.login(currentCredentials)
 
+               viewModelScope.launch {
+                   delay(1000)
+                   val loginResult = credentialsLoginUseCase.login(currentCredentials)
                    handleLoginResult(loginResult, currentCredentials)
 
 
         }
-         */
     }
 
     fun signUpButtonClicked() {
@@ -81,8 +84,12 @@ class LoginViewModel @Inject constructor(
     private fun LoginResult.Failure.EmptyCredentials.toLoginViewState(credentials: Credentials): LoginViewState {
         return LoginViewState.Active(
             credentials = credentials,
-            emailInputErrorMessage = "test",
-            passwordInputErrorMessage = "test"
+            emailInputErrorMessage = UiTextUtils.ResourceText(R.string.err_empty_email).takeIf {
+                this.emptyEmail
+            },
+            passwordInputErrorMessage = UiTextUtils.ResourceText(R.string.err_empty_password).takeIf {
+                this.emptyPassword
+            },
         )
     }
 
@@ -94,13 +101,13 @@ class LoginViewModel @Inject constructor(
             is LoginResult.Failure.InvalidCredentials -> {
                 LoginViewState.SubmissionError(
                     credentials = currentCredentials,
-                    errorMessage = "test",
+                    errorMessage = UiTextUtils.ResourceText(R.string.err_invalid_credentials),
                 )
             }
             is LoginResult.Failure.Unknown -> {
                 LoginViewState.SubmissionError(
                     credentials = currentCredentials,
-                    errorMessage = "test",
+                    errorMessage = UiTextUtils.ResourceText(R.string.err_login_failure),
                 )
             }
             is LoginResult.Failure.EmptyCredentials -> {

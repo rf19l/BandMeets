@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.ContentAlpha
 import androidx.compose.material.TextFieldDefaults
@@ -32,14 +33,15 @@ fun BandMeetsTextField(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     enabled: Boolean = true,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
     placeholderText: String? = null,
     focusRequester: FocusRequester = FocusRequester(),
 ) {
-    BandMeetsTheme {
         val labelComposable: (@Composable () -> Unit)? = labelText?.let {
             @Composable {
                 Text(
                     text = labelText,
+                    color = if (errorMessage == null) MaterialTheme.colorScheme.primary.copy() else MaterialTheme.colorScheme.error
                 )
             }
         }
@@ -66,6 +68,7 @@ fun BandMeetsTextField(
                 visualTransformation = visualTransformation,
                 enabled = enabled,
                 keyboardOptions = keyboardOptions,
+                keyboardActions = keyboardActions,
                 colors = md3TextFieldColors(),
                 placeholder = placeholderComposable,
             )
@@ -82,7 +85,6 @@ fun BandMeetsTextField(
                 )
             }
         }
-    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -114,6 +116,7 @@ private fun md3TextFieldColors(
     ),
     disabledLabelColor: Color = unfocusedLabelColor.copy(ContentAlpha.disabled),
     errorLabelColor: Color = MaterialTheme.colorScheme.error,
+   // errorLabelColor: Color = focusedLabelColor,
     placeholderColor: Color = MaterialTheme.colorScheme.onSurface.copy(
         ContentAlpha.medium
     ),

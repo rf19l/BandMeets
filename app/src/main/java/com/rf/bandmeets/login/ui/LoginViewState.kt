@@ -1,5 +1,6 @@
 package com.rf.bandmeets.login.ui
 
+import com.rf.bandmeets.core.ui.UiTextUtils
 import com.rf.bandmeets.login.domain.model.Credentials
 
 sealed class LoginViewState(
@@ -19,8 +20,8 @@ sealed class LoginViewState(
      */
     data class Active(
         override val credentials: Credentials,
-        val emailInputErrorMessage: String? = null,
-        val passwordInputErrorMessage: String? = null,
+        val emailInputErrorMessage: UiTextUtils? = null,
+        val passwordInputErrorMessage: UiTextUtils? = null,
     ) : LoginViewState(
         credentials = credentials,
     )
@@ -40,7 +41,7 @@ sealed class LoginViewState(
      */
     data class SubmissionError(
         override val credentials: Credentials,
-        val errorMessage: String,
+        val errorMessage: UiTextUtils,
     ) : LoginViewState(
         credentials = credentials,
     )
