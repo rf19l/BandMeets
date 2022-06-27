@@ -7,7 +7,10 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.*
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,7 +27,6 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
-import androidx.core.view.ViewCompat
 import com.rf.bandmeets.R
 import com.rf.bandmeets.core.ui.UiTextUtils
 import com.rf.bandmeets.core.ui.components.BandMeetsButtonPrimary
@@ -98,65 +100,69 @@ private fun LoginInputColumn(
     contentPadding: PaddingValues = PaddingValues(
         dimensionResource(id = R.dimen.screen_padding)
     ),
+
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(
-                start = contentPadding.calculateStartPadding(LocalLayoutDirection.current),
-                end = contentPadding.calculateEndPadding(LocalLayoutDirection.current),
+    BandMeetsTheme {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(
+                    start = contentPadding.calculateStartPadding(LocalLayoutDirection.current),
+                    end = contentPadding.calculateEndPadding(LocalLayoutDirection.current),
+                )
+                .verticalScroll(rememberScrollState()),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Spacer(modifier = Modifier.height(contentPadding.calculateTopPadding()))
+
+            AppLogo(modifier = Modifier.padding(vertical = 88.dp))
+            Spacer(Modifier.height(16.dp))
+
+            EmailInput(
+                text = viewState.credentials.email.value,
+                onTextChanged = onEmailChanged,
+                errorMessage = (viewState as? LoginViewState.Active)
+                    ?.emailInputErrorMessage
+                    ?.getString(),
+                //?.getString(this.context),
+                enabled = viewState.inputsEnabled,
             )
-            .verticalScroll(rememberScrollState()),
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Spacer(modifier = Modifier.height(contentPadding.calculateTopPadding()))
+            Spacer(modifier = Modifier.height(12.dp))
 
-        AppLogo(modifier = Modifier.padding(vertical = 88.dp))
-        Spacer(Modifier.height(16.dp))
-
-        EmailInput(
-            text = viewState.credentials.email.value,
-            onTextChanged = onEmailChanged,
-            errorMessage = (viewState as? LoginViewState.Active)
-                ?.emailInputErrorMessage
-                ?.getString(),
-            //?.getString(this.context),
-            enabled = viewState.inputsEnabled,
-        )
-        Spacer(modifier = Modifier.height(12.dp))
-
-        PasswordInput(
-            text = viewState.credentials.password.value,
-            onTextChanged = onPasswordChanged,
-            errorMessage = (viewState as? LoginViewState.Active)
-                ?.passwordInputErrorMessage?.getString(),
-            enabled = viewState.inputsEnabled,
-            onLoginClicked = onLoginClicked
-        )
-        if (viewState is LoginViewState.SubmissionError) {
-            Text(
-                text = viewState.errorMessage.getString(),
-                color = MaterialTheme.colorScheme.error,
-                modifier = Modifier
-                    .padding(top = 12.dp),
+            PasswordInput(
+                text = viewState.credentials.password.value,
+                onTextChanged = onPasswordChanged,
+                errorMessage = (viewState as? LoginViewState.Active)
+                    ?.passwordInputErrorMessage?.getString(),
+                enabled = viewState.inputsEnabled,
+                onLoginClicked = onLoginClicked
             )
+            if (viewState is LoginViewState.SubmissionError) {
+                Text(
+                    text = viewState.errorMessage.getString(),
+                    color = MaterialTheme.colorScheme.error,
+                    modifier = Modifier
+                        .padding(top = 12.dp),
+                )
+            }
+
+            Spacer(modifier = Modifier.height(48.dp))
+
+            LoginButton(
+                onClick = onLoginClicked,
+                enabled = viewState.inputsEnabled,
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            SignUpButton(
+                onClick = onSignUpClicked,
+                enabled = viewState.inputsEnabled,
+            )
+            Spacer(modifier = Modifier.height(12.dp))
         }
-
-        Spacer(modifier = Modifier.height(48.dp))
-
-        LoginButton(
-            onClick = onLoginClicked,
-            enabled = viewState.inputsEnabled,
-        )
-
-        Spacer(modifier = Modifier.height(48.dp))
-
-        SignUpButton(
-            onClick = onSignUpClicked,
-            enabled = viewState.inputsEnabled,
-        )
-        Spacer(modifier = Modifier.height(contentPadding.calculateBottomPadding()))
     }
+
 }
 
 @Composable
@@ -233,7 +239,7 @@ private fun AppLogo(
 ) {
     BandMeetsTheme {
         Image(
-            painterResource(id = R.drawable.ic_trumpet),
+            painterResource(id = R.drawable.ic_launcher_foreground),
             contentDescription = stringResource(R.string.app_logo_content_description),
             modifier = modifier
                 .fillMaxWidth(.7f),

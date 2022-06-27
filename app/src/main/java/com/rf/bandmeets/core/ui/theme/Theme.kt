@@ -34,11 +34,11 @@ fun BandMeetsTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composa
     } else {
         LightColorPalette
     }
-
     MaterialTheme(
         colors = colors,
         typography = Typography,
         shapes = Shapes,
         content = content
     )
+
 }
