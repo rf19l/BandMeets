@@ -39,7 +39,9 @@ import com.rf.bandmeets.login.domain.model.Credentials
 import com.rf.bandmeets.login.domain.model.Email
 import com.rf.bandmeets.login.domain.model.Password
 
-
+/*
+    TODO - Update so that buttons are on the bottom of the screen without changing the rest of the ui
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginContent(
@@ -56,7 +58,7 @@ fun LoginContent(
         Box(
             modifier = Modifier
                 .padding(
-                start = 10.dp,
+                    start = 10.dp,
                 end = 10.dp
             )
             ,
@@ -76,18 +78,12 @@ fun LoginContent(
                         .wrapContentSize()
                         .align(Alignment.Center)
                         .fillMaxSize(.5f)
-                //TODO fix alignment
+                    //TODO fix alignment
                 )
             }
 
         }
     }
-}
-
-@Composable
-fun Material3CircularProgressIndicator(modifier: Any) {
-    //TODO
-
 }
 
 @Composable
@@ -101,7 +97,7 @@ private fun LoginInputColumn(
         dimensionResource(id = R.dimen.screen_padding)
     ),
 
-) {
+    ) {
     BandMeetsTheme {
         Column(
             modifier = Modifier
@@ -128,7 +124,6 @@ private fun LoginInputColumn(
                 enabled = viewState.inputsEnabled,
             )
             Spacer(modifier = Modifier.height(12.dp))
-
             PasswordInput(
                 text = viewState.credentials.password.value,
                 onTextChanged = onPasswordChanged,
@@ -148,17 +143,17 @@ private fun LoginInputColumn(
 
             Spacer(modifier = Modifier.height(48.dp))
 
-            LoginButton(
-                onClick = onLoginClicked,
-                enabled = viewState.inputsEnabled,
-            )
+                LoginButton(
+                    onClick = onLoginClicked,
+                    enabled = viewState.inputsEnabled,
+                )
 
-            Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(24.dp))
 
-            SignUpButton(
-                onClick = onSignUpClicked,
-                enabled = viewState.inputsEnabled,
-            )
+                SignUpButton(
+                    onClick = onSignUpClicked,
+                    enabled = viewState.inputsEnabled,
+                )
             Spacer(modifier = Modifier.height(12.dp))
         }
     }
@@ -184,7 +179,7 @@ private fun EmailInput(
             imeAction = ImeAction.Next
         ),
         keyboardActions = KeyboardActions(
-            onNext ={
+            onNext = {
                 localFocus.moveFocus(FocusDirection.Next)
             }
         )
@@ -205,7 +200,7 @@ fun PasswordInput(
         labelText = stringResource(R.string.password),
         errorMessage = errorMessage,
         visualTransformation = PasswordVisualTransformation(
-            mask ='*',
+            mask = '*',
         ),
         enabled = enabled,
         keyboardOptions = KeyboardOptions(

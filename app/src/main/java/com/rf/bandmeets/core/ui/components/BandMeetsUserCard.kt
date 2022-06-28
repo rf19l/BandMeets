@@ -16,6 +16,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.rf.bandmeets.R
+import com.rf.bandmeets.core.ui.theme.BandMeetsTheme
 
 @Composable
 fun BandMeetsUserCard(
@@ -62,49 +63,52 @@ fun BandMeetsUserCard(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CardTest() {
-    Card(
-        elevation = CardDefaults.cardElevation(4.dp, 4.dp, 4.dp, 4.dp, 4.dp, 4.dp),
-        modifier = Modifier
-            .background(
-                color = MaterialTheme.colorScheme.primaryContainer,
-                shape = MaterialTheme.shapes.medium,
-            )
-            .fillMaxHeight()
-            .fillMaxWidth()
-            .padding(8.dp),
-        shape = MaterialTheme.shapes.medium,
+    BandMeetsTheme{
+        Card(
+            elevation = CardDefaults.cardElevation(4.dp, 4.dp, 4.dp, 4.dp, 4.dp, 4.dp),
+            modifier = Modifier
+                .background(
+                    color = MaterialTheme.colorScheme.primaryContainer,
+                    shape = MaterialTheme.shapes.medium,
+                )
+                .fillMaxHeight()
+                .fillMaxWidth()
+                .padding(8.dp),
+            shape = MaterialTheme.shapes.medium,
 
-        ) {
-        Column(
-            Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Image(
-                painterResource(id = R.drawable.avatar),
-                contentDescription = "User Avatar",
-                modifier = Modifier
-                    .clip(CircleShape)
-                    .background(
-                        color = MaterialTheme.colorScheme.primaryContainer,
-                        shape = MaterialTheme.shapes.large
-                    )
-                    .align(CenterHorizontally)
-                    .fillMaxWidth(.5f),
-            )
-            Spacer(modifier = Modifier.height(10.dp))
-            Text(
-                text = "Name", color = MaterialTheme.colorScheme.onPrimaryContainer,
-                modifier = Modifier
-                    .align(CenterHorizontally)
-                    .fillMaxWidth(),
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.headlineSmall
+            ) {
+            Column(
+                Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Image(
+                    painterResource(id = R.drawable.avatar),
+                    contentDescription = "User Avatar",
+                    modifier = Modifier
+                        .clip(CircleShape)
+                        .background(
+                            color = MaterialTheme.colorScheme.primaryContainer,
+                            shape = MaterialTheme.shapes.large
+                        )
+                        .align(CenterHorizontally)
+                        .fillMaxWidth(.5f),
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+                Text(
+                    text = "Name", color = MaterialTheme.colorScheme.onPrimaryContainer,
+                    modifier = Modifier
+                        .align(CenterHorizontally)
+                        .fillMaxWidth(),
+                    textAlign = TextAlign.Center,
+                    style = MaterialTheme.typography.headlineSmall
 
 
-            )
+                )
+            }
         }
     }
+
 }
 
 
