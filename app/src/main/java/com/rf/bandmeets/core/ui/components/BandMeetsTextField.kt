@@ -7,15 +7,14 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.ContentAlpha
-import androidx.compose.material.TextFieldDefaults
-import androidx.compose.material3.*
-import androidx.compose.material3.ExposedDropdownMenuDefaults.outlinedTextFieldColors
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
@@ -41,7 +40,7 @@ fun BandMeetsTextField(
             @Composable {
                 Text(
                     text = labelText,
-                    color = if (errorMessage == null) MaterialTheme.colorScheme.primary.copy() else MaterialTheme.colorScheme.error
+                    color = if (errorMessage == null) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.error
                 )
             }
         }
@@ -69,7 +68,7 @@ fun BandMeetsTextField(
                 enabled = enabled,
                 keyboardOptions = keyboardOptions,
                 keyboardActions = keyboardActions,
-                colors = md3TextFieldColors(),
+                //colors = md3TextFieldColors(),
                 placeholder = placeholderComposable,
             )
 
@@ -86,64 +85,6 @@ fun BandMeetsTextField(
             }
         }
 }
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun md3TextFieldColors(
-    textColor: Color = MaterialTheme.colorScheme.onBackground,
-    disabledTextColor: Color = textColor.copy(ContentAlpha.disabled),
-    backgroundColor: Color = Color.Transparent,
-    cursorColor: Color = MaterialTheme.colorScheme.primary,
-    errorCursorColor: Color = MaterialTheme.colorScheme.error,
-    focusedBorderColor: Color =
-        MaterialTheme.colorScheme.primary.copy(alpha = ContentAlpha.high),
-    unfocusedBorderColor: Color =
-        MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.disabled),
-    disabledBorderColor: Color = unfocusedBorderColor.copy(alpha = ContentAlpha.disabled),
-    errorBorderColor: Color = MaterialTheme.colorScheme.error,
-    leadingIconColor: Color =
-        MaterialTheme.colorScheme.onSurface.copy(alpha = TextFieldDefaults.IconOpacity),
-    disabledLeadingIconColor: Color = leadingIconColor.copy(alpha = ContentAlpha.disabled),
-    errorLeadingIconColor: Color = leadingIconColor,
-    trailingIconColor: Color =
-        MaterialTheme.colorScheme.onSurface.copy(alpha = TextFieldDefaults.IconOpacity),
-    disabledTrailingIconColor: Color = trailingIconColor.copy(alpha = ContentAlpha.disabled),
-    errorTrailingIconColor: Color = MaterialTheme.colorScheme.error,
-    focusedLabelColor: Color =
-        MaterialTheme.colorScheme.primary.copy(alpha = ContentAlpha.high),
-    unfocusedLabelColor: Color = MaterialTheme.colorScheme.onSurface.copy(
-        ContentAlpha.medium
-    ),
-    disabledLabelColor: Color = unfocusedLabelColor.copy(ContentAlpha.disabled),
-    errorLabelColor: Color = MaterialTheme.colorScheme.error,
-   // errorLabelColor: Color = focusedLabelColor,
-    placeholderColor: Color = MaterialTheme.colorScheme.onSurface.copy(
-        ContentAlpha.medium
-    ),
-    disabledPlaceholderColor: Color = placeholderColor.copy(ContentAlpha.disabled),
-) = outlinedTextFieldColors(
-    textColor,
-    disabledTextColor,
-    backgroundColor,
-    cursorColor,
-    errorCursorColor,
-    focusedBorderColor,
-    unfocusedBorderColor,
-    disabledBorderColor,
-    errorBorderColor,
-    leadingIconColor,
-    disabledLeadingIconColor,
-    errorLeadingIconColor,
-    trailingIconColor,
-    disabledTrailingIconColor,
-    errorTrailingIconColor,
-    focusedLabelColor,
-    unfocusedLabelColor,
-    disabledLabelColor,
-    errorLabelColor,
-    placeholderColor,
-    disabledPlaceholderColor,
-)
 
 @Preview(
     name = "Night Mode - Filled",
