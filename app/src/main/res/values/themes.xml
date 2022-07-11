@@ -2,6 +2,8 @@
 <resources>
 
     <style name="Theme.BandMeets" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:statusBarColor">#FFFBFE</item>
+        <item name="android:statusBarColor">
+            #FFFBFE
+        </item>
     </style>
 </resources>

@@ -7,7 +7,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -42,7 +41,6 @@ import com.rf.bandmeets.login.domain.model.Password
 /*
     TODO - Update so that buttons are on the bottom of the screen without changing the rest of the ui
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginContent(
     viewState: LoginViewState,
@@ -59,9 +57,8 @@ fun LoginContent(
             modifier = Modifier
                 .padding(
                     start = 10.dp,
-                end = 10.dp
-            )
-            ,
+                    end = 10.dp
+                ),
         ) {
             LoginInputColumn(
                 viewState = viewState,
@@ -113,14 +110,12 @@ private fun LoginInputColumn(
 
             AppLogo(modifier = Modifier.padding(vertical = 88.dp))
             Spacer(Modifier.height(16.dp))
-
             EmailInput(
                 text = viewState.credentials.email.value,
                 onTextChanged = onEmailChanged,
                 errorMessage = (viewState as? LoginViewState.Active)
                     ?.emailInputErrorMessage
                     ?.getString(),
-                //?.getString(this.context),
                 enabled = viewState.inputsEnabled,
             )
             Spacer(modifier = Modifier.height(12.dp))
@@ -143,17 +138,17 @@ private fun LoginInputColumn(
 
             Spacer(modifier = Modifier.height(48.dp))
 
-                LoginButton(
-                    onClick = onLoginClicked,
-                    enabled = viewState.inputsEnabled,
-                )
+            LoginButton(
+                onClick = onLoginClicked,
+                enabled = viewState.inputsEnabled,
+            )
 
-                Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(24.dp))
 
-                SignUpButton(
-                    onClick = onSignUpClicked,
-                    enabled = viewState.inputsEnabled,
-                )
+            SignUpButton(
+                onClick = onSignUpClicked,
+                enabled = viewState.inputsEnabled,
+            )
             Spacer(modifier = Modifier.height(12.dp))
         }
     }

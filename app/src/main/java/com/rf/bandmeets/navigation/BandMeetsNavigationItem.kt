@@ -18,6 +18,6 @@ sealed class BandMeetsNavigationItem(var route: String, var icon: Int, var title
     object Profile : BandMeetsNavigationItem(
         route = "TODO",
         icon = R.drawable.ic_baseline_account_box_24,
-        title = "Chat"
+        title = "Profile"
     )
 }
